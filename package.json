@@ -28,6 +28,8 @@
     "webpack-dev-server": "^3.1.8"
   },
   "dependencies": {
+    "autoprefixer": "^9.1.5",
+    "postcss-cli": "^6.0.0",
     "progress": "^2.0.0",
     "vue": "^2.5.17",
     "vue-loader": "^15.4.2",

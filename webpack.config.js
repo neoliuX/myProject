@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const rootPath = process.cwd();
 const webpack = require('webpack')
 const path = require('path');
+const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const { VueLoaderPlugin } = require('vue-loader')
 
@@ -9,7 +10,8 @@ const { VueLoaderPlugin } = require('vue-loader')
 const port = 80
 
 module.exports = function (env) {
-  // console.log(env.path)
+  // const isProd = nodeEnv === 'pro'
+  // console.log(isProd, 8989898988989)
   const [folder, pageList] = env.path.split("/")
 
 	const configs = env.config ? env.config.split("|") : ''
@@ -51,7 +53,7 @@ module.exports = function (env) {
       })
     }
   ))
-  console.log(plugins, 111111)
+  // console.log(plugins, 111111)
   // return
   let config = {
 		context: path.join(__dirname, 'src'),
@@ -75,10 +77,6 @@ module.exports = function (env) {
           options: {
             extractCSS: true,
             loaders: {
-              // css: ExtractTextPlugin.extract({
-              //   use: 'css-loader',
-              //   fallback: 'vue-style-loader' // <- 这是vue-loader的依赖，所以如果使用npm3，则不需要显式安装
-              // }),
               scss: 'vue-style-loader!css-loader!sass-loader', // <style lang="scss">
               sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax' // <style lang="sass">
             }
@@ -96,19 +94,33 @@ module.exports = function (env) {
         },
         {
           test: /\.scss$/,
-          use: [
-              "style-loader", // creates style nodes from JS strings
-              "css-loader", // translates CSS into CommonJS
-              "sass-loader" // compiles Sass to CSS, using Node Sass by default
-          ]
+          exclude: /node_modules/,
+          use: ExtractTextPlugin.extract({
+            fallback: 'style-loader',
+            use: [{
+              loader: "css-loader" // translates CSS into CommonJS
+            }, {
+              loader: "sass-loader", // compiles Sass to CSS
+              options: {
+                includePaths: [path.join(__dirname, "src/public/scss")],
+                sourceMap: true
+              }
+            }, {
+              loader: 'postcss-loader',
+              options: {
+                plugins: function () {
+                  const plugins = [ autoprefixer ]
+                  return plugins
+                }
+              }
+            }]
+          })
+          // use: [
+          //     "style-loader", // creates style nodes from JS strings
+          //     "css-loader", // translates CSS into CommonJS
+          //     "sass-loader" // compiles Sass to CSS, using Node Sass by default
+          // ]
         },
-        // {
-        //   test: /\.css$/,
-        //   use: [
-        //     { loader: "style-loader" },
-        //     { loader: "css-loader" }
-        //   ]
-        // },
         {
           test: /\.css$/,
           use: [ 'style-loader', 'css-loader' ]
