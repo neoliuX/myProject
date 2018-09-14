@@ -2,10 +2,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const rootPath = process.cwd();
 const webpack = require('webpack')
 const path = require('path');
+const ExtractTextPlugin = require("extract-text-webpack-plugin")
+
+
 const port = 80
 
 module.exports = function (env) {
-  console.log(env.path)
+  // console.log(env.path)
   const [folder, pageList] = env.path.split("/")
 
 	const configs = env.config ? env.config.split("|") : ''
@@ -28,9 +31,16 @@ module.exports = function (env) {
   pathList.forEach(item => {
     entry[item.fileName] = './' + path.join(folder, item.fileName, item.fileName + '.js')
   })
-  console.log(entry, 8989)
+  // console.log(entry, 8989)
 
-  let plugins = [].concat(pathList.map(p => {
+  let plugins = [
+		new ExtractTextPlugin({
+			filename: (getPath) => {
+				return getPath(`./css/${outFileName}.css`).replace('css/js', 'css');
+			},
+			allChunks: true
+		})
+  ].concat(pathList.map(p => {
       return new HtmlWebpackPlugin({
         filename: p.fileName + '.html',
         chunks: [p.fileName],
@@ -39,6 +49,8 @@ module.exports = function (env) {
       })
     }
   ))
+  // console.log(plugins, 111111)
+  // return
   let config = {
 		context: path.join(__dirname, 'src'),
     entry,
@@ -56,6 +68,21 @@ module.exports = function (env) {
     module: {
       rules: [
         {
+          test: /\.vue$/,
+          loader: 'vue-loader',
+          options: {
+            extractCSS: true,
+            loaders: {
+              // css: ExtractTextPlugin.extract({
+              //   use: 'css-loader',
+              //   fallback: 'vue-style-loader' // <- 这是vue-loader的依赖，所以如果使用npm3，则不需要显式安装
+              // }),
+              scss: 'vue-style-loader!css-loader!sass-loader', // <style lang="scss">
+              sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax' // <style lang="sass">
+            }
+          }
+        },
+        {
           test: /\.js$/,
           exclude: /(node_modules|bower_components)/,
           use: {
@@ -66,20 +93,20 @@ module.exports = function (env) {
           }
         },
         {
-            test: /\.scss$/,
-            use: [
-                "style-loader", // creates style nodes from JS strings
-                "css-loader", // translates CSS into CommonJS
-                "sass-loader" // compiles Sass to CSS, using Node Sass by default
-            ]
-        },
-        {
-          test: /\.css$/,
+          test: /\.scss$/,
           use: [
-            { loader: "style-loader" },
-            { loader: "css-loader" }
+              "style-loader", // creates style nodes from JS strings
+              "css-loader", // translates CSS into CommonJS
+              "sass-loader" // compiles Sass to CSS, using Node Sass by default
           ]
         },
+        // {
+        //   test: /\.css$/,
+        //   use: [
+        //     { loader: "style-loader" },
+        //     { loader: "css-loader" }
+        //   ]
+        // },
         {
           test: /\.css$/,
           use: [ 'style-loader', 'css-loader' ]
