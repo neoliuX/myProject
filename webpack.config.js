@@ -10,8 +10,6 @@ const { VueLoaderPlugin } = require('vue-loader')
 const port = 80
 
 module.exports = function (env) {
-  // const isProd = nodeEnv === 'pro'
-  // console.log(isProd, 8989898988989)
   const [folder, pageList] = env.path.split("/")
 
 	const configs = env.config ? env.config.split("|") : ''
@@ -64,6 +62,7 @@ module.exports = function (env) {
 			filename: `./js/${outFileName}.bundle.js`,
 			chunkFilename: "[name].[id].[chunkhash:8].min.js"
     },
+    // stats: 'errors-only',
     devServer: {
         overlay: true, //报错的时候，在页面上弹出一个遮罩，并且把错误显示在上面
         port: port
