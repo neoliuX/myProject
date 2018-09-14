@@ -3,6 +3,7 @@ const rootPath = process.cwd();
 const webpack = require('webpack')
 const path = require('path');
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
+const { VueLoaderPlugin } = require('vue-loader')
 
 
 const port = 80
@@ -34,6 +35,7 @@ module.exports = function (env) {
   // console.log(entry, 8989)
 
   let plugins = [
+    new VueLoaderPlugin(),
 		new ExtractTextPlugin({
 			filename: (getPath) => {
 				return getPath(`./css/${outFileName}.css`).replace('css/js', 'css');
@@ -49,7 +51,7 @@ module.exports = function (env) {
       })
     }
   ))
-  // console.log(plugins, 111111)
+  console.log(plugins, 111111)
   // return
   let config = {
 		context: path.join(__dirname, 'src'),
