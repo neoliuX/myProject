@@ -30,7 +30,7 @@ module.exports = function (env) {
   // return
   let entry = {}
   pathList.forEach(item => {
-    entry[item.fileName] = './' + path.join(folder, item.fileName, item.fileName + '.js')
+    entry[item.fileName] = './' + path.join(folder, item.fileName, item.fileName + '.ts')
   })
   // console.log(entry, 8989)
 
@@ -46,7 +46,7 @@ module.exports = function (env) {
       return new HtmlWebpackPlugin({
         filename: p.fileName + '.html',
         chunks: [p.fileName],
-        template: path.join(folder, p.fileName, p.fileName + '.html'),
+        template: path.join(folder, p.fileName, p.fileName + '.ejs'),
         hash: true,
       })
     }

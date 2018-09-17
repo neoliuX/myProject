@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es5",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,    
+    "isolatedModules": false,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "removeComments": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "lib" : ["es2015", "es2017", "dom"],
+    "baseUrl": "",
+    "jsx": "react",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "types" : [
+    ]
+  },
+  "include": [
+      "./src",
+      "./types"
+  ],
+  "files": [
+    "typings.d.ts"
+  ]
+}
