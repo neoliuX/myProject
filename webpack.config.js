@@ -10,6 +10,7 @@ const { VueLoaderPlugin } = require('vue-loader')
 const port = 80
 
 module.exports = function (env) {
+  const isProd = process.env.NODE_ENV || ''
   const [folder, pageList] = env.path.split("/")
 
 	const configs = env.config ? env.config.split("|") : ''
@@ -68,6 +69,15 @@ module.exports = function (env) {
         port: port
     },
     plugins,
+		externals: {
+			jquery: "jQuery",
+			vue: "Vue",
+			Zepto: "Zepto",
+			// TcPlayer: "TcPlayer",
+			webim: "webim",
+			// "pixi.js": "PIXI",
+			// flvjs: "flvjs"
+		},
     module: {
       rules: [
         {
@@ -160,8 +170,9 @@ module.exports = function (env) {
 				'vue$': 'vue/dist/vue.esm.js',
 				'scss': path.join(__dirname, "src/public/scss")
 			},
-		},
-    devtool: "inline-source-map"
+    },
+    performance: { hints: false },
+    // devtool: "inline-source-map"
   }
   return config
 }

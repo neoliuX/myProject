@@ -8,10 +8,10 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 @Component
 export default class HomeComponent extends Vue {
-  text: string = 'home'
+  text: string = 'homes'
   mounted() {
     setTimeout(() => {
-      this.text = 'homeText'
+      this.text = 'homeTexta'
     }, 3000)
   }
 }

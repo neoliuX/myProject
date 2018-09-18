@@ -21,13 +21,21 @@
       "node_modules/@types"
     ],
     "types" : [
-    ]
+    ],
+    "paths": {
+      "jquery-ui": [
+        "node_modules/@types/jqueryui/index"
+      ],
+      "@src/*": [ "src/*" ],
+      "@common/*": [ "src/common/*" ],
+      "@public/*": [ "src/public/*" ]
+    }
   },
   "include": [
       "./src",
       "./types"
   ],
-  // "files": [
-  //   "typings.d.ts"
-  // ]
+  "files": [
+    "typings.d.ts"
+  ]
 }
