@@ -82,6 +82,14 @@ module.exports = function (env) {
           }
         },
         {
+          test: /\.tsx?$/,
+          loader: 'ts-loader',
+          exclude: /node_modules/,
+          options: {
+            appendTsSuffixTo: [/\.vue$/]
+          }
+        },
+        {
           test: /\.js$/,
           exclude: /(node_modules|bower_components)/,
           use: {
@@ -145,7 +153,15 @@ module.exports = function (env) {
           ]
         }
       ]
-    }
+    },
+		resolve: {
+			extensions: ['.ts', '.js', '.vue', '.json'],
+			alias: {
+				'vue$': 'vue/dist/vue.esm.js',
+				'scss': path.join(__dirname, "src/public/scss")
+			},
+		},
+    devtool: "inline-source-map"
   }
   return config
 }

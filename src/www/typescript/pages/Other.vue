@@ -4,10 +4,10 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
-Component
+@Component
 export default class OtherComponent extends Vue {
   mounted () {
     console.log('Other')
