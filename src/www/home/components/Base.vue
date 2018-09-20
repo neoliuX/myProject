@@ -4,17 +4,18 @@
       header
     </div>
     <div class="left">
-      <div class="row">
-        <h3 class="title">title</h3>
-        <ul class="list">
-          <li v-for="i in 5">list {{i}}</li>
+      <div class="row" v-for="info in leftData">
+
+        <h3 class="title">{{info.title}}</h3>
+
+        <ul class="list" v-if="info.children">
+          <template v-for="item in info.children">
+            <li>
+              <router-link :to="item.path">{{item.title}}</router-link>
+            </li>
+          </template>
         </ul>
-      </div>
-      <div class="row">
-        <h3 class="title">title</h3>
-        <ul class="list">
-          <li v-for="i in 5">list {{i}}</li>
-        </ul>
+
       </div>
     </div>
     <div class="content">
@@ -27,6 +28,34 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
 export default class BaseComponent extends Vue {
+  leftData: any = [
+    {
+      'title': '表单',
+      'children': [
+        {
+          'title': '表单验证',
+          'path': '/form'
+        },
+        {
+          'title': '表单验证',
+          'path': '/sss'
+        }
+      ]
+    },
+    {
+      'title': '表单',
+      'children': [
+        {
+          'title': '表单验证',
+          'path': '/form'
+        },
+        {
+          'title': '表单验证',
+          'path': '/sss'
+        }
+      ]
+    }
+  ]
 }
 </script>
 
@@ -49,6 +78,23 @@ export default class BaseComponent extends Vue {
   border-right:1px solid #ddd;
   overflow: hidden;
   overflow-y: auto;
+  .row{
+    border-top: 1px solid #ddd;
+    &:first-child{
+      border:none;
+    }
+  }
+  .title{
+    line-height: 35px;
+    padding:0 15px;
+    border-bottom: 1px solid #ddd;
+  }
+  .list li a{
+    display: block;
+    padding:0 20px;
+    line-height: 30px;
+    color:#666;
+  }
 }
 .content{
   margin-top:81px;
