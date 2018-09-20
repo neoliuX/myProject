@@ -1,13 +1,16 @@
 <template>
 <div class="container">
     <div class="header">
+      <div class="logo">
+        Neo Liu
+      </div>
       header
     </div>
     <div class="left">
       <div class="row" v-for="info in leftData">
-
-        <h3 class="title">{{info.title}}</h3>
-
+        <h3 class="title">
+          <router-link :to="'/home'">{{info.title}}</router-link>
+        </h3>
         <ul class="list" v-if="info.children">
           <template v-for="item in info.children">
             <li>
@@ -62,38 +65,66 @@ export default class BaseComponent extends Vue {
 <style lang="scss" scoped>
 .header{
   position: fixed;
+  z-index: 2;
   top:0;
   left:0;
   width:100%;
-  height: 80px;
+  height: 60px;
   background:rgba(255,255,255, 0.7);
   border-bottom:1px solid #ddd;
 }
+.logo{
+  background-color:#1893ee;
+  position: absolute;
+  top:0;
+  left:0;
+  height: 60px;
+  line-height: 60px;
+  width:200px;
+  text-align: center;
+  color:#fff;
+  font-size:24px;
+}
 .left{
   position: fixed;
-  top:81px;
+  z-index: 3;
+  top:60px;
   left:0;
   bottom:0;
-  width:230px;
-  border-right:1px solid #ddd;
-  overflow: hidden;
+  width:200px;
+  background-color:#232323;
   overflow-y: auto;
   .row{
-    border-top: 1px solid #ddd;
+    border-top: 1px solid #303030;
     &:first-child{
       border:none;
     }
   }
   .title{
-    line-height: 35px;
-    padding:0 15px;
-    border-bottom: 1px solid #ddd;
+    line-height: 45px;
+    border-bottom: 1px solid #303030;
+    a{
+      color:#717171;
+      display: block;
+      padding-left:50px;
+      position: relative;
+      &:before{
+        content:'';
+        position: absolute;
+        top:50%;
+        left:30px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent transparent #717171;
+        margin-top:-5px;
+      }
+    }
   }
   .list li a{
     display: block;
     padding:0 20px;
     line-height: 30px;
-    color:#666;
+    // color:#999;
   }
 }
 .content{
