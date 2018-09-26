@@ -1,4 +1,10 @@
 @import "base";
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 ;
+}
+
 html,
 body{
   height:100%;
@@ -27,6 +33,7 @@ body{
   overflow-y: auto;
   position: relative;
   z-index: 3;
+  display:none;
 }
 .right-box{
   flex: 1 auto;

@@ -170,7 +170,7 @@ module.exports = function (env) {
 				'vue$': 'vue/dist/vue.esm.js',
 				'scss': path.join(__dirname, "src/public/scss"),
         '@src': path.resolve(process.cwd(), 'src/'),
-        '@vueComponents': path.resolve(process.cwd(), 'src/vue-components/'),
+        '@common': path.resolve(process.cwd(), 'src/commen/'),
         '@public': path.resolve(process.cwd(), 'src/public/'),
 			},
     },

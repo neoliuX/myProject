@@ -31,7 +31,7 @@
 </template>
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import Icon from '@vueComponents/icon/Icon.vue'
+import Icon from '@common/icon/Icon.vue'
 
 @Component({
   components: {

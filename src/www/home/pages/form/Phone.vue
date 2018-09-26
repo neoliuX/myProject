@@ -1,6 +1,6 @@
 <template>
   <div class="phone">
-    <input type="number" v-model="phoneNumber">
+    <input type="number" v-model="phoneNumber" placeholder="phoneNumber">
   </div>
 </template>
 
