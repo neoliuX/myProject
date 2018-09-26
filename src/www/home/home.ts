@@ -4,17 +4,15 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import BaseCom from './components/Base.vue'
-import HomeCom from './pages/Home.vue'
-import OtherCom from './pages/Other.vue'
- 
+import FormBaseCom from './pages/form/Base.vue'
+
 const Bar = { template: '<router-view></router-view>' }
 let routes = [
   { path: '/',
     component: BaseCom,
     children: [
-      { path: '/home', component: HomeCom },
-      { path: '/other', component: OtherCom },
-      { path: '/', redirect: '/home' }
+      { path: '/form', component: FormBaseCom },
+      { path: '/', redirect: '/form' }
     ]
   }
 ]

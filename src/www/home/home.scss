@@ -24,8 +24,11 @@ body{
 .left-box{
   width:20%;
   box-shadow: 0 10px 10px #ddd;
-  overflow-y:scroll;
+  overflow-y: auto;
+  position: relative;
+  z-index: 3;
 }
 .right-box{
   flex: 1 auto;
+  padding-top:30px;
 }

@@ -168,7 +168,10 @@ module.exports = function (env) {
 			extensions: ['.ts', '.js', '.vue', '.json'],
 			alias: {
 				'vue$': 'vue/dist/vue.esm.js',
-				'scss': path.join(__dirname, "src/public/scss")
+				'scss': path.join(__dirname, "src/public/scss"),
+        '@src': path.resolve(process.cwd(), 'src/'),
+        '@vueComponents': path.resolve(process.cwd(), 'src/vue-components/'),
+        '@public': path.resolve(process.cwd(), 'src/public/'),
 			},
     },
     performance: { hints: false },
