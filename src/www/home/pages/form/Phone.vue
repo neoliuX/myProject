@@ -1,6 +1,5 @@
 <template>
   <div class="phone">
-    <input type="number" v-model="phoneNumber" placeholder="phoneNumber">
   </div>
 </template>
 
@@ -8,8 +7,7 @@
 import { Component, Vue, Prop } from 'vue-property-decorator'
 
 @Component
-export default class FormComponent extends Vue {
-  phoneNumber: number | string = '请输入手机号'
+export default class PhoneComponent extends Vue {
   mounted () {
     console.log('form')
   }
