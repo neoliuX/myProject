@@ -1,5 +1,6 @@
 <template>
   <div class="phone">
+    <h3 class="title">手机验证</h3>
   </div>
 </template>
 
