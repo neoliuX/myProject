@@ -1,6 +1,6 @@
 <template>
   <div class="form">
-    <phone></phone>
+    <!-- <phone></phone> -->
   </div>
 </template>
 
