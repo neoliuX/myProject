@@ -5,7 +5,7 @@ import TestTwoStore from './test2.js'
 
 Vue.use(Vuex)
 const store = new Vuex.Store({
-  state: {
+  modules: {
     testOne: TestOneStore,
     testTwo: TestTwoStore
   }

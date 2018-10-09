@@ -10,6 +10,9 @@ const TestTwoStore = {
     },
     testFun () {
       console.log('test2 由 actionA 触发')
+    },
+    changeCount (state: any) {
+      state.countTwo = 1000
     }
   }
 }
