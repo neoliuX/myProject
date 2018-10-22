@@ -4,19 +4,16 @@
       <div class="right-box">
         <router-view></router-view>
       </div>
-      <page-com></page-com>
     </div>
   </div>
 </template>
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import TestTwo from '../pages/TestTwo.vue'
-import PageCom from '@common/page/Page.vue'
 
 @Component({
   components: {
-    TestTwo,
-    PageCom
+    TestTwo
   }
 })
 export default class BaseComponent extends Vue {

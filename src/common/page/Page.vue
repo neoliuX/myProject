@@ -11,14 +11,14 @@
     <li class="pages">
       <div class="list" :style='{width: listWidth}'>
         <span
-        v-for="i in pageTotal" 
+        v-for="i in pageCount" 
         :class="i === nowPage ? 'active':''"
         @click="setNowPage(i)">
         {{i}}</span>
       </div>
     </li>
     <li class="next">
-      <template v-if="nowPage >= pageTotal">
+      <template v-if="nowPage >= pageCount">
           <span class="disabled">后</span>
       </template>    
       <template v-else>
@@ -32,14 +32,17 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 
 @Component
 export default class PageBoxComponent extends Vue {
-  pageTotal: number = 10
-  nowPage: number = 1
+  @Prop() count: number
+  @Prop() curPage: number
+  pageCount: number = this.count
+  nowPage: number = this.curPage
   listWidth: string = '100%'
   setNowPage (index: number) {
-    this.nowPage = index > this.pageTotal ? 1 : index
+    this.nowPage = index > this.pageCount ? 1 : index
+    this.$emit('input', this.nowPage)
   }
   mounted () {
-    this.listWidth = this.pageTotal * 54 + 'px'
+    this.listWidth = this.pageCount * 54 + 'px'
   }
 }
 </script>
@@ -81,6 +84,6 @@ export default class PageBoxComponent extends Vue {
   }
 }
 .pages{
-  width:486px;
+  // width:486px;
 }
 </style>
