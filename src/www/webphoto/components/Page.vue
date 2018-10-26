@@ -9,7 +9,7 @@
       </template>
     </li>
     <li class="pages">
-      <div class="list" :style='{width: listWidth}'>
+      <div class="list" :style='{width: listWidth, marginLeft: "-" + (pageMargeLeft * 54) + "px"}'>
         <span
         v-for="i in pageCount" 
         :class="i === nowPage ? 'active':''"
@@ -36,9 +36,11 @@ export default class PageBoxComponent extends Vue {
   @Prop() curPage: number
   pageCount: number = this.count
   nowPage: number = this.curPage
+  pageMargeLeft: number = 0
   listWidth: string = '100%'
   setNowPage (index: number) {
     this.nowPage = index > this.pageCount ? 1 : index
+    this.pageMargeLeft = index > 9 ? index - 9 : 0
     this.$emit('input', this.nowPage)
   }
   mounted () {
@@ -55,6 +57,9 @@ export default class PageBoxComponent extends Vue {
   height:30px;
   text-align:center;
   user-select:none;
+  .list{
+    transition: all 0.1s ease-in;
+  }
   li{
     display:inline-block;
     overflow:hidden;
@@ -84,6 +89,6 @@ export default class PageBoxComponent extends Vue {
   }
 }
 .pages{
-  // width:486px;
+  width:486px;
 }
 </style>

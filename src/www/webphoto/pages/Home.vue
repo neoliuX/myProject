@@ -11,7 +11,7 @@
 <script lang="ts">
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator'
 import { State, Getter, Action, Mutation, namespace} from 'vuex-class'
-import PageCom from '@common/page/Page.vue'
+import PageCom from '../components/Page.vue'
 import PhotoBox from '../components/PhotoBox.vue'
 
 @Component({
@@ -22,11 +22,15 @@ import PhotoBox from '../components/PhotoBox.vue'
 })
 export default class HomeComponent extends Vue {
   @Mutation('setCurPage') setCurPageFun: Function
+  @Action('actionA') actionAFun: Function
   @State(state => state.page.count) count: number
   @State(state => state.page.curPage) curPage: number
   
   changePage (index: number) {
     this.setCurPageFun(index)
+  }
+  mounted () {
+    this.actionAFun()
   }
 }
 </script>
