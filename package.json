@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cross-env NODE_ENV=dev webpack-dev-server --progress --mode development",
+    "start": "cross-env NODE_ENV=dev webpack-dev-server --progress --host 0.0.0.0 --disableHostCheck=true --mode development",
     "build": "cross-env NODE_ENV=prod webpack --progress --mode production --optimize-minimize"
   },
   "author": "",

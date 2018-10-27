@@ -110,6 +110,11 @@ module.exports = function (env) {
           }
         },
         {
+          test: /\.css$/,
+          exclude: /node_modules/,
+          use: [ 'style-loader', 'css-loader' ]
+        }, 
+        {
           test: /\.scss$/,
           exclude: /node_modules/,
           use: ExtractTextPlugin.extract({
@@ -139,29 +144,24 @@ module.exports = function (env) {
           // ]
         },
         {
-          test: /\.css$/,
-          use: [ 'style-loader', 'css-loader' ]
-        }, 
-        {
-          test: /\.(png|jpg|gif)$/i,
-          use: [
-            {
-              loader: 'url-loader',
-              options: {
-                limit: 8192
-              }
-            }
+          test: /\.(jpg|jpeg|gif|png)$/,
+          exclude: /node_modules/,
+          loader: [
+            // `url-loader?limit=4112&outputPath=images/&publicPath=${isProd ? `//static.gtarcade.com/miniclient/${folder}/images` : '../images'}/&name=[hash:12].[ext]`
+            `url-loader?limit=4112&outputPath=images/&publicPath=${isProd ? `../images` : '../images'}/&name=[hash:12].[ext]`
           ]
         },
-        {
-          test: /\.(png|jpg|gif)$/,
-          use: [
-            {
-              loader: 'file-loader',
-              options: {}
-            }
-          ]
-        }
+        // {
+        //   test: /\.(jpg|jpeg|gif|png)$/,
+        //   use: [
+        //     {
+        //       loader: `url-loader?limit=4112&outputPath=images/&publicPath=${isProd ? `images` : '../images'}/&name=[hash:12].[ext]`,
+        //       options: {
+        //         limit: 8192
+        //       }
+        //     }
+        //   ]
+        // }
       ]
     },
 		resolve: {

@@ -1,56 +1,65 @@
 <template>
   <ul class="page-box">
     <li class="prev">
-      <template v-if="nowPage <= 1">
+      <template v-if="curPage <= 1">
           <span class="disabled">前</span>
       </template>    
       <template v-else>
-          <span @click="setNowPage(--nowPage)">前</span>
+          <span @click="setCurPageFun(-1)">前</span>
       </template>
     </li>
     <li class="pages">
       <div class="list" :style='{width: listWidth, marginLeft: "-" + (pageMargeLeft * 54) + "px"}'>
         <span
-        v-for="i in pageCount" 
-        :class="i === nowPage ? 'active':''"
-        @click="setNowPage(i)">
+        v-for="i in count" 
+        :class="i === curPage ? 'active':''"
+        @click="setCurPageFun(i)">
         {{i}}</span>
       </div>
     </li>
     <li class="next">
-      <template v-if="nowPage >= pageCount">
+      <template v-if="curPage >= count">
           <span class="disabled">后</span>
       </template>    
       <template v-else>
-          <span @click="setNowPage(++nowPage)">后</span>
+          <span @click="setCurPageFun(+1)">后</span>
       </template>
     </li>
   </ul>
 </template>
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
+import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
+import { State, Getter, Action, Mutation, namespace} from 'vuex-class'
 
 @Component
 export default class PageBoxComponent extends Vue {
-  @Prop() count: number
-  @Prop() curPage: number
-  pageCount: number = this.count
-  nowPage: number = this.curPage
+  @Mutation('setCurPage') setCurPageFun: Function
+  @State(state => state.page.count) count: number
+  @State(state => state.page.curPage) curPage: number
   pageMargeLeft: number = 0
   listWidth: string = '100%'
-  setNowPage (index: number) {
-    this.nowPage = index > this.pageCount ? 1 : index
-    this.pageMargeLeft = index > 9 ? index - 9 : 0
-    this.$emit('input', this.nowPage)
+  @Watch('count')
+  onModelCount () {
+    this.listWidth = this.count * 54 + 'px'
   }
+  @Watch('curPage')
+  onModelCurPage () {
+    this.pageMargeLeft = this.curPage > 9 ? this.curPage - 9 : 0
+  }
+  // setCurPage (index: number) {
+  //   this.nowPage = index > this.count ? 1 : index
+  //   this.pageMargeLeft = index > 9 ? index - 9 : 0
+  //   this.$emit('input', this.curPage)
+  // }
   mounted () {
-    this.listWidth = this.pageCount * 54 + 'px'
+    this.listWidth = this.count * 54 + 'px'
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .page-box{
+  margin-top:6px;
   width:100%;
   overflow:hidden;
   position:relative;
