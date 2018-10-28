@@ -1,6 +1,6 @@
 const PageStore = {
   state: {
-    count: 10,
+    count: 0,
     curPage: 1
   },
   mutations: {
@@ -13,8 +13,8 @@ const PageStore = {
       //   state.curPage = index
       // }
       // 下面是上面注视的简写
-      state.curPage = index === -1 ? state.curPage <= 0 ? 0 : state.curPage - 1 : index === +1 ? state.curPage >= state.count ? state.count : state.curPage + 1 : index
-      console.log(state.curPage)
+      state.curPage = index === -1 ? state.curPage <= 1 ? 1 : state.curPage - 1 : index === +1 ? state.curPage >= state.count ? state.count : state.curPage + 1 : index
+      // console.log(state.curPage)
     },
     getPageCount (state: any, count: number) {
       state.count = count

@@ -12,13 +12,8 @@
 </template>
 <script lang="ts">
 import { Vue, Component, Prop } from 'vue-property-decorator'
-import TestTwo from '../pages/TestTwo.vue'
 
-@Component({
-  components: {
-    TestTwo
-  }
-})
+@Component
 export default class BaseComponent extends Vue {
   logoUrl: string = '../images/logo.png'
 }

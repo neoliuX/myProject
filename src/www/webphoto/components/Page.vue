@@ -80,7 +80,7 @@ export default class PageBoxComponent extends Vue {
       line-height:30px;
       color:#fff;
       background-color:#000;
-      border-radius:3px;
+      border-radius:100%;
       margin:0 12px;
       display:inline-block;
       cursor:pointer;
