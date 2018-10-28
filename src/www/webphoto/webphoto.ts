@@ -18,7 +18,7 @@ let routes = [
     children: [
       { path: '/home', component: HomeCom },
       { path: '/choice', component: ChoiceCom },
-      { path: '/', redirect: '/choice' }
+      { path: '/', redirect: '/home' }
     ]
   }
 ]

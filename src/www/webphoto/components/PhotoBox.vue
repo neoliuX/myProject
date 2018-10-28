@@ -3,8 +3,8 @@
     <div
       v-for="info in data" @click="choicePhotoFun(info)"
       class="photo"
-      :class="choiceDataIds.indexOf(info.photoId) !== -1 ? 'active' : ''">
-      <img :src="info.photoUrl" />
+      :class="choiceDataIds.indexOf(info.id) !== -1 ? 'active' : ''">
+      <img :src="info.imgUrl + '_60.' + info.imgExtend" />
     </div>
   </div>
 </template>
@@ -19,15 +19,18 @@ export default class HomeComponent extends Vue {
   @Mutation('choicePhoto') choicePhotoFun: Function
   @State(state => state.photo.choiceData) choiceData: any
   choiceDataIds: any = []
-  // setChoiceClass (info: any) {
-  //   console.log(info, 888888)
-  // }
-  @Watch('choiceData')
-  onModelChoiceData () {
+  setChoiceClass () {
     this.choiceDataIds = []
     this.choiceData.map((item: any) => {
-      this.choiceDataIds.push(item.photoId)
+      this.choiceDataIds.push(item.id)
     })
+  }
+  @Watch('choiceData')
+  onModelChoiceData () {
+    this.setChoiceClass()
+  }
+  mounted () {
+    this.setChoiceClass()
   }
 }
 </script>

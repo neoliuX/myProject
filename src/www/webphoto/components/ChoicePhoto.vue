@@ -2,7 +2,7 @@
   <div class="choice-photo">
     <div class="photos">
       <div class="photo" v-for="info in choiceData">
-        <img :src="info.photoUrl">
+        <img :src="info.imgUrl + '_60.' + info.imgExtend ">
       </div>
     </div>
   </div>

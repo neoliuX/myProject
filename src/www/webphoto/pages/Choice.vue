@@ -1,8 +1,30 @@
 <template>
   <div class="choice">
     <div class="left">
-      <div class="photo" v-for="info in 6">
-        <img :src="'http://via.placeholder.com/260x122'">
+      <div class="photo" v-for="info in choiceData">
+        <img :src="info.imgUrl + '_60.' + info.imgExtend" @click="setCenterPhoto(info)">
+      </div>
+    </div>
+    <div class="center">
+      <div class="photo-box">
+        <div class="photo">
+          <img :src="showPhoto.imgUrl + '_60.' + showPhoto.imgExtend">
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <h3 class="title">
+        <img src="../images/text.png">
+      </h3>
+      <div class="ewm">
+        <img :src="ewm">
+      </div>
+      <div class="print">
+        <img src="../images/print.png">
+      </div>
+      <div class="btns">
+         <img src="../images/back.png" class="back" @click="$router.push({ path: '/home' })">
+         <img src="../images/finish.png" class="finish" @click="finish">
       </div>
     </div>
   </div>
@@ -15,7 +37,22 @@ import Axios from 'axios'
 
 @Component
 export default class ChoicePhotoComponent extends Vue {
+  @Action('clearAllData') clearAllDataFun: Function
+  @Mutation('getFinish') getFinishFun: Function
   @State(state => state.photo.choiceData) choiceData: any
+  @State(state => state.photo.ewm) ewm: string
+  showPhoto: string = ''
+  setCenterPhoto (info: any) {
+    this.showPhoto = info
+  }
+  finish () {
+    this.getFinishFun()
+    this.clearAllDataFun()
+    this.$router.push({ path: '/home' })
+  }
+  mounted () {
+    this.showPhoto = this.choiceData[0]
+  }
 }
 </script>
 
@@ -29,6 +66,7 @@ export default class ChoicePhotoComponent extends Vue {
   overflow: hidden;
 }
 .left{
+  float: left;
   height:100%;
   width:204px;
   box-sizing: border-box;
@@ -39,9 +77,88 @@ export default class ChoicePhotoComponent extends Vue {
     width:138px;
     height:88px;
     margin:0 auto 11px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
     img{
       display: block;
       max-width: 100%;
+      max-height: 100%;
+    }
+  }
+}
+.center{
+  float: left;
+  position: relative;
+  width:710px;
+  height:705px;
+  overflow: hidden;
+  .photo-box{
+    position: absolute;
+    top:102px;
+    left:-12px;
+    background:url('../images/photoBg.png') no-repeat;
+    width: 649px;
+    height:473px;
+    box-sizing: border-box;
+    padding:48px 42px 0 39px;
+  }
+  .photo{
+    width:552px;
+    height:363px;
+    display:flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+    img{
+      display: block;
+      max-width: 100%;
+    }
+  }
+}
+.right{
+  width:388px;
+  float: left;
+  .title{
+    margin-top:72px;
+    height:142px;
+    img{
+      display: block;
+      margin:0 auto;
+    }
+  }
+  .ewm{
+    height:173px;
+    width:173px;
+    background:#fff;
+    margin:0 auto 96px;
+    img{
+      display: block;
+      height:100%;
+      width:100%;
+    }
+  }
+  .print{
+    width:266px;
+    margin:0 auto 15px;
+      cursor: pointer;
+    img{
+      display: block;
+    }
+  }
+  .btns{
+    width:266px;
+    overflow: hidden;
+    margin:0 auto;
+    .back{
+      float:left;
+      cursor: pointer;
+    }
+    .finish{
+      float: right;
+      cursor: pointer;
     }
   }
 }

@@ -19,6 +19,10 @@ const PageStore = {
     getPageCount (state: any, count: number) {
       state.count = count
       // state.commit('setCurPage')
+    },
+    emptyPage (state: any) {
+      state.count = 0
+      state.curPage = 1
     }
   }
 }

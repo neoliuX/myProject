@@ -2,10 +2,10 @@
   <ul class="page-box">
     <li class="prev">
       <template v-if="curPage <= 1">
-          <span class="disabled">前</span>
+          <span class="disabled"></span>
       </template>    
       <template v-else>
-          <span @click="setCurPageFun(-1)">前</span>
+          <span @click="setCurPageFun(-1)"></span>
       </template>
     </li>
     <li class="pages">
@@ -19,10 +19,10 @@
     </li>
     <li class="next">
       <template v-if="curPage >= count">
-          <span class="disabled">后</span>
+          <span class="disabled"></span>
       </template>    
       <template v-else>
-          <span @click="setCurPageFun(+1)">后</span>
+          <span @click="setCurPageFun(+1)"></span>
       </template>
     </li>
   </ul>
@@ -79,7 +79,7 @@ export default class PageBoxComponent extends Vue {
       text-align:center;
       line-height:30px;
       color:#fff;
-      background-color:#000;
+      background: #000;
       border-radius:100%;
       margin:0 12px;
       display:inline-block;
@@ -88,9 +88,18 @@ export default class PageBoxComponent extends Vue {
         background-color:#555;
       }
     }
+    &.prev,
+    &.next{
+      span{
+        background: url('../images/arrorblack.png') no-repeat;
+      }
+    }
+    &.prev{
+      transform: rotate(180deg);
+    }
   }
   .disabled{
-    background-color:#bbb2b8 !important;
+    background: url('../images/arrorgrey.png') no-repeat !important;
     cursor: text;
   }
   .active{

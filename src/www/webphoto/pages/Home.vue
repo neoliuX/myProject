@@ -40,27 +40,29 @@ import Axios from 'axios'
 export default class HomeComponent extends Vue {
   @Mutation('setCurPage') setCurPageFun: Function
   @Mutation('getPageCount') getPageCountFun: Function
+  @Mutation('getEwm') getEwmFun: Function
   @Action('getPhotoList') getPhotoListFun: Function
   @State(state => state.page.curPage) curPage: number
   @State(state => state.photo.eachPageData) eachPageData: any
   @State(state => state.photo.choiceData) choiceData: any
+  // @State(state => state.photo.eventIdDate) eventIdDate: any
   photoRowWidth: number = 0
   @Watch('eachPageData')
   onModelPhotoW () {
     this.photoRowWidth = this.eachPageData.length * 1186
     this.getPageCountFun(this.eachPageData.length)
   }
+  // @Watch('eventIdDate')
+  // onModeleventIdDate () {
+  //   console.log(this.eventIdDate, 99999)
+  // }
   goToNext () {
-    if(this.choiceData.length > 0) {
-      this.$router.push({ path: '/choice' })
-    }
+    this.getEwmFun()
+    this.$router.push({ path: '/choice' })
   }
   mounted () {
     this.getPhotoListFun()
-    // Axios.get('https://micro-admin.gtarcade.com/clientapi/wallet/searchhistory?type=1&startDay=2018-10-20&endDay=2018-10-26&account=&searchtype=&pagesize=10&page=1&order_id=').then((response) => {
-    //   console.log(response);
-    // })
-    // console.log(Math.ceil(this.photoNumber/8))
+    // console.log(this.eventIdDate, 8888)
   }
 }
 </script>
@@ -113,6 +115,7 @@ export default class HomeComponent extends Vue {
 }
 .photo-boxs{
   overflow: hidden;
+  height: 426px;
   transition: all 0.3s ease-in;
 }
 .photo-box{
