@@ -58,7 +58,9 @@ export default class HomeComponent extends Vue {
   // }
   goToNext () {
     this.getEwmFun()
-    this.$router.push({ path: '/choice' })
+    if(this.choiceData.length > 0) {
+      this.$router.push({ path: '/choice' })
+    }
   }
   mounted () {
     this.getPhotoListFun()
