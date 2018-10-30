@@ -1,12 +1,17 @@
 import Axios from 'axios'
 const PhotoStore = {
   state: {
+    isLoadWeb: true,
     data: [],
     eachPageData: [],
     choiceData: [],
     eventIdDate: 20180101,
     startDate: '',
-    ewm: ''
+    ewm: '',
+    isSetInterval: true,
+    printTxt: '',
+    isPrintTxt: false,
+    updateDate: ''
   },
   mutations: {
     // getPhoto (state: any, dataList: any) {
@@ -34,11 +39,13 @@ const PhotoStore = {
       }
     },
     getPhotoListM (state: any) {
+      state.isLoadWeb = false
       let url = location.search
       if (url.indexOf("?") != -1) { 
           let [key, date] = url.substr(1).split('=')
           state.eventIdDate = date
       } 
+      state.isSetInterval = false
       Axios.get('//prod.waliwang.com/rg/api/album/getImage', {
         params: {
           eventId: state.eventIdDate,
@@ -48,15 +55,21 @@ const PhotoStore = {
       .then(function (response) {
         let responseData = response.data
         let responseList = responseData.list
+        state.isSetInterval = true
+        if(responseData.updateDate){
+          state.updateDate = responseData.updateDate
+        }
         if(response.status === 200) {
           // state.commit('getPhoto', responseData.list)
           for(let item in responseList) {
             state.data.push(responseList[item])
           }
           let pageNumber = Math.ceil(state.data.length / 8)
+          state.eachPageData = []
           for(let i=0; i < pageNumber; i++) {
             state.eachPageData.push(state.data.slice((i * 8), ((i + 1) * 8)))
           }
+          // console.log(state.eachPageData)
         }
         if(responseList.length > 0) {
           state.startDate = responseData.maxDate
@@ -64,7 +77,7 @@ const PhotoStore = {
       })
     },
     getEwm (state: any) {
-      console.log(state.choiceData)
+      // console.log(state.choiceData)
       if(state.choiceData.length > 0) {
         let imgs = state.choiceData.map((item: any) => {
           return item.id
@@ -78,55 +91,45 @@ const PhotoStore = {
         // this.$router.push({ path: '/choice' })
       }
     },
-    getFinish (state: any) {
+    getPrint (state: any) {
       if(state.choiceData.length > 0) {
         let imgs = state.choiceData.map((item: any) => {
           return item.id
         })
         Axios.get('//prod.waliwang.com/rg/api/p/savePrit/' + state.eventIdDate + '/' + imgs, {})
         .then(function (response) {
+          state.isPrintTxt = true
+          setTimeout(() => {
+            state.isPrintTxt = false
+          }, 5000)
           console.log(response)
+          if(parseInt(response.data.code) === 1) {
+            state.printTxt = 'your photos has been printed'
+          } else {
+            state.printTxt = response.data.msg
+          }
         })
         // this.$router.push({ path: '/choice' })
       }
     },
-    clearAllData (state: any) {
-      state.eachPageData = []
+    clearChoice (state: any) {
       state.choiceData = []
+      state.isPrintTxt = false
      }
   },
   actions: {
     async getPhotoList (state: any) {
       state.commit('getPhotoListM')
-      // let url = location.search
-      // if (url.indexOf("?") != -1) { 
-      //     let [key, date] = url.substr(1).split('=')
-      //     state.eventIdDate = date
-      // } 
-      // Axios.get('//prod.waliwang.com/rg/api/album/getImage', {
-      //   params: {
-      //     eventId: state.eventIdDate,
-      //     startDate: state.startDate
-      //   }
-      // })
-      // .then(function (response) {
-      //   let responseData = response.data
-      //   if(response.status === 200) {
-      //     state.commit('getPhoto', responseData.list)
-      //   }
-      //   if(responseData.list.length > 0) {
-      //     state.startDate = responseData.maxDate
-      //   }
-      // })
-      setInterval(() => {
-        console.log('需要天假循环')
-        // state.dispatch('getPhotoListFun')
-      }, 5000)
+      // setInterval(() => {
+      //   console.log('需要天假循环')
+      //   // state.dispatch('getPhotoListFun')
+      // }, 5000)
     },
-    async clearAllData (state: any) {
+    async clearChoice (state: any) {
       state.commit('emptyPage')
-      state.commit('clearAllData')
-    }
+      state.commit('clearChoice')
+    },
+
   }
 }
 

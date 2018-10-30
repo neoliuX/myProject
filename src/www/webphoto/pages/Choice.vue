@@ -19,7 +19,12 @@
       <div class="ewm">
         <img :src="ewm">
       </div>
-      <div class="print">
+      <div class="printtxt">
+        <template v-if="isPrintTxt">
+          {{printTxt}}
+        </template>
+      </div>
+      <div class="print" @click="getPrintFun">
         <img src="../images/print.png">
       </div>
       <div class="btns">
@@ -37,17 +42,18 @@ import Axios from 'axios'
 
 @Component
 export default class ChoicePhotoComponent extends Vue {
-  @Action('clearAllData') clearAllDataFun: Function
-  @Mutation('getFinish') getFinishFun: Function
+  @Action('clearChoice') clearChoiceFun: Function
+  @Mutation('getPrint') getPrintFun: Function
   @State(state => state.photo.choiceData) choiceData: any
   @State(state => state.photo.ewm) ewm: string
+  @State(state => state.photo.printTxt) printTxt: string
+  @State(state => state.photo.isPrintTxt) isPrintTxt: boolean
   showPhoto: string = ''
   setCenterPhoto (info: any) {
     this.showPhoto = info
   }
   finish () {
-    this.getFinishFun()
-    this.clearAllDataFun()
+    this.clearChoiceFun()
     this.$router.push({ path: '/home' })
   }
   mounted () {
@@ -112,6 +118,7 @@ export default class ChoicePhotoComponent extends Vue {
     flex-flow: row wrap;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
     img{
       display: block;
       max-width: 100%;
@@ -133,7 +140,7 @@ export default class ChoicePhotoComponent extends Vue {
     height:173px;
     width:173px;
     background:#fff;
-    margin:0 auto 96px;
+    margin:0 auto 60px;
     img{
       display: block;
       height:100%;
@@ -147,6 +154,13 @@ export default class ChoicePhotoComponent extends Vue {
     img{
       display: block;
     }
+  }
+  .printtxt{
+    text-align: center;
+    font-size:12px;
+    color:red;
+    line-height: 36px;
+    height:36px;
   }
   .btns{
     width:266px;

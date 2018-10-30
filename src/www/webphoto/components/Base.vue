@@ -1,7 +1,8 @@
 <template>
 <div class="container">
     <div class="logo">
-      <img src="http://s.waliwang.com/a/pc/20181101/images/e9d07f7c350b.png" alt="">
+      <img src="http://s.waliwang.com/a/pc/20181101/images/76d17f38117d.png" alt="">
+      <!-- <img src="http://s.waliwang.com/a/pc/20181101/images/e9d07f7c350b.png" alt=""> -->
     </div>
     <div class="content">
       <div class="right-box">

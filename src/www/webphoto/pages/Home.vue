@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <div class="date">Update Time: 2018/11/12   10:21 AM</div>
+    <div class="date">Update Time: {{updateDate}}</div>
     <div class="top">
-      <div class="btn prev" @click="setCurPageFun(-1)"></div>
+      <div class="btn prev" @click="setCurPageFun('prev')"></div>
       <div class="photo-row">
         <div class="photo-boxs" :style="{width: photoRowWidth + 'px',marginLeft: '-' + (curPage - 1) * 1186 + 'px'}">
           <template  v-for="info in eachPageData">
@@ -10,7 +10,7 @@
           </template>
         </div>
       </div>
-      <div class="btn next" @click="setCurPageFun(+1)"></div>
+      <div class="btn next" @click="setCurPageFun('next')"></div>
       <page-com></page-com>
     </div>
     <div class="bottom">
@@ -45,7 +45,11 @@ export default class HomeComponent extends Vue {
   @State(state => state.page.curPage) curPage: number
   @State(state => state.photo.eachPageData) eachPageData: any
   @State(state => state.photo.choiceData) choiceData: any
+  @State(state => state.photo.isSetInterval) isSetInterval: boolean
+  @State(state => state.photo.isLoadWeb) isLoadWeb: boolean
+  @State(state => state.photo.updateDate) updateDate: string
   // @State(state => state.photo.eventIdDate) eventIdDate: any
+  
   photoRowWidth: number = 0
   @Watch('eachPageData')
   onModelPhotoW () {
@@ -63,8 +67,23 @@ export default class HomeComponent extends Vue {
     }
   }
   mounted () {
-    this.getPhotoListFun()
-    // console.log(this.eventIdDate, 8888)
+    // console.log(this.eachPageData)
+    this.photoRowWidth = this.eachPageData.length * 1186
+    if(this.isLoadWeb) {
+      console.log(8989899)
+      this.getPageCountFun(this.eachPageData.length)
+      this.getPhotoListFun()
+      
+      setInterval(() => {
+        // console.log('循环111')
+        if(this.isSetInterval) {
+          // console.log('循环2222')
+          this.getPhotoListFun()
+        }
+        // state.dispatch('getPhotoListFun')
+      }, 5000)
+      // console.log(this.eventIdDate, 8888) 
+    }
   }
 }
 </script>

@@ -5,7 +5,7 @@
           <span class="disabled"></span>
       </template>    
       <template v-else>
-          <span @click="setCurPageFun(-1)"></span>
+          <span @click="setCurPageFun('prev')"></span>
       </template>
     </li>
     <li class="pages">
@@ -22,7 +22,7 @@
           <span class="disabled"></span>
       </template>    
       <template v-else>
-          <span @click="setCurPageFun(+1)"></span>
+          <span @click="setCurPageFun('next')"></span>
       </template>
     </li>
   </ul>
