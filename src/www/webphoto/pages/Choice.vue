@@ -121,7 +121,8 @@ export default class ChoicePhotoComponent extends Vue {
     overflow: hidden;
     img{
       display: block;
-      max-width: 100%;
+      height: 100%;
+      margin:0 auto;
     }
   }
 }

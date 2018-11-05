@@ -17,6 +17,9 @@ import { Vue, Component, Prop } from 'vue-property-decorator'
 @Component
 export default class BaseComponent extends Vue {
   logoUrl: string = '../images/logo.png'
+  mounted () {
+    this.$router.push({ path: '/home' })
+  }
 }
 </script>
 

@@ -30,12 +30,15 @@ export default class HomeComponent extends Vue {
     padding:4px;
     margin:0 8px;
     display: inline-block;
+    width:142px;
+    height:92px;
+    background:#fff;
   }
   img{
     display: block;
-    width:142px;
-    height:92px;
     background:#000;
+    height:100%;
+    margin:0 auto;
   }
 }
 </style>
