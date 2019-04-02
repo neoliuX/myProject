@@ -25,8 +25,13 @@ export default class BaseComponent extends Vue {
 
 <style lang="scss" scoped>
 .container{
-  width:1920px;
-  height:1080px;
+  width:100%;
+  height:100%;
+  overflow: hidden;
+  min-width: 1600px;
+  min-height: 1000px;
+  // width:1920px;
+  // height:1080px;
   background: url('../images/bg.jpg') no-repeat;
   background-size: cover;
 }

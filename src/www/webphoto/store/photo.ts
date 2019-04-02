@@ -62,7 +62,7 @@ const PhotoStore = {
         if(response.status === 200) {
           // state.commit('getPhoto', responseData.list)
           for(let item in responseList) {
-            state.data.push(responseList[item])
+            state.data.unshift(responseList[item])
           }
           let pageNumber = Math.ceil(state.data.length / 8)
           state.eachPageData = []

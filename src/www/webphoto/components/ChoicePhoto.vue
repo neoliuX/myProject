@@ -1,7 +1,7 @@
 <template>
   <div class="choice-photo">
     <div class="photos">
-      <div class="photo" v-for="info in choiceData">
+      <div class="photo" v-for="info in choiceData" @click="choicePhotoFun(info)">
         <img :src="info.imgUrl + '_60.' + info.imgExtend ">
       </div>
     </div>
@@ -15,6 +15,7 @@ import { State, Getter, Action, Mutation, namespace} from 'vuex-class'
 @Component
 export default class HomeComponent extends Vue {
   @State(state => state.photo.choiceData) choiceData: any
+  @Mutation('choicePhoto') choicePhotoFun: Function
 }
 </script>
 
@@ -33,6 +34,7 @@ export default class HomeComponent extends Vue {
     width:142px;
     height:92px;
     background:#fff;
+    cursor: pointer;
   }
   img{
     display: block;
